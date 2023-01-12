@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <title>Mega cool web app</title>
+  </header>
+  <body>
+    <h4>To do</h4>
+    <ol id="todoList"></ol>
+  </body>
+  <script>
+    let todoListElement = document.getElementById("todoList");
+
+    async function refresh() {
+      const response = await fetch("http://localhost:8080/");
+      const todos = await response.json();
+      todoListElement.innerHTML = "";
+      console.log(todos);
+      todos.forEach((what) => {
+        let dynamicTodoEntry = document.createElement("li");
+        dynamicTodoEntry.textContent = what;
+        todoListElement.appendChild(dynamicTodoEntry);
+      });
+    }
+
+    refresh();
+  </script>
+</html>
