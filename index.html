@@ -6,6 +6,10 @@
   <body>
     <h4>To do</h4>
     <ol id="todoList"></ol>
+    <div>
+      <input type="text" id="newTodo" />
+      <button onclick="addTodo()" id="submitButton">Add</button>
+    </div>
   </body>
   <script>
     let todoListElement = document.getElementById("todoList");
@@ -20,6 +24,16 @@
         dynamicTodoEntry.textContent = what;
         todoListElement.appendChild(dynamicTodoEntry);
       });
+    }
+
+    async function addTodo() {
+      const newTodoText = document.getElementById("newTodo").value;
+      await fetch("http://localhost:8080/add", {
+        method: "POST",
+        body: newTodoText,
+      });
+      console.log(newTodoText);
+      await refresh();
     }
 
     refresh();
